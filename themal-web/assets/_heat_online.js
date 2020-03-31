@@ -4,19 +4,58 @@ var colorData = 'assets/rgb_colors.json';
 
 var heatDiv = '#divHeat';
 var colorDiv = '#divColor';
-cmdCheckHeat(); 
+var heatBackSpan = '';
+
+cmdCheckHeat();
 
 $(document).ready(function () {
     var interval = setInterval(
         function cmdUpdateSrv() {
             cmdCheckHeat();  // check heat map  
-        }, 3000);
- 
-            $('.menu .item')
-                .tab();    
+
+        }, 5000);
 });
 
- 
+$("#myQRCode").qrcode({
+    size: 250,
+    fill: 'silver',
+    text: 'http://queck.me'
+});
+
+
+/*
+ * Basic Count Up from Date and Time
+ * Author: @mrwigster / https://guwii.com/bytes/count-date-time-javascript/
+ */
+window.onload = function() {
+  // Month Day, Year Hour:Minute:Second, id-of-element-container
+  countUpFromTime("March 22, 2020 12:00:00", 'countup1'); // ****** Change this line!
+};
+function countUpFromTime(countFrom, id) {
+  countFrom = new Date(countFrom).getTime();
+  var now = new Date(),
+      countFrom = new Date(countFrom),
+      timeDifference = (now - countFrom);
+    
+  var secondsInADay = 60 * 60 * 1000 * 24,
+      secondsInAHour = 60 * 60 * 1000;
+    
+  days = Math.floor(timeDifference / (secondsInADay) * 1);
+  hours = Math.floor((timeDifference % (secondsInADay)) / (secondsInAHour) * 1);
+  mins = Math.floor(((timeDifference % (secondsInADay)) % (secondsInAHour)) / (60 * 1000) * 1);
+  secs = Math.floor((((timeDifference % (secondsInADay)) % (secondsInAHour)) % (60 * 1000)) / 1000 * 1);
+
+  var idEl = document.getElementById(id);
+  idEl.getElementsByClassName('days')[0].innerHTML = days;
+  idEl.getElementsByClassName('hours')[0].innerHTML = hours;
+  idEl.getElementsByClassName('minutes')[0].innerHTML = mins;
+  idEl.getElementsByClassName('seconds')[0].innerHTML = secs;
+
+  clearTimeout(countUpFromTime.interval);
+  countUpFromTime.interval = setTimeout(function(){ countUpFromTime(countFrom, id); }, 1000);
+}
+
+
 
 function cmdCheckHeat() {
     var valLikes = '';
@@ -24,41 +63,39 @@ function cmdCheckHeat() {
     readTextFile(liveData, function (text) {
         var tempObj = JSON.parse(text)
         // console.log(arrayOfObjects.Table);
-        q = 0;
+        q = 0; var heatFrontSpan = ''; 
         for (i in tempObj.Table) { // in all records entries 
             var updateTime = tempObj.Table[i].AIDate;
-            $("#lastUpdateDate").html(updateTime); 
-                for (j in tempObj.Table[i]) { // in all records entries 
-                    // console.log(tempObj.Table[i][j]); 
-                    var heatData = tempObj.Table;
-                    var heatPoints = heatData.length - 1;
+            $("#lastUpdateDate").html(updateTime);
 
-                    var heatFrontSpan = '';
-                    var heatBackSpan = '';
-                    q+=1;
+            for (j in tempObj.Table[i]) { // in all records entries 
+                // console.log(tempObj.Table[i][j]); 
+                var heatData = tempObj.Table;
+                var heatPoints = heatData.length - 1;
+                q += 1;
+                const heatColorMap = parseInt(tempObj.Table[i][j]);
+                $(topValue).html(heatColorMap); // adjust temp
+                if (q > 2) {
+                    if (heatColorMap) {
+                        // console.log(q);
+                        $.each(rgbColors, function (i, v) {
+                            var modThis = parseInt(v[1]) % parseInt(c2f(heatColorMap));
+                            // console.log(v[1] + ' ' + c2f(heatColorMap) + ' mod:' + modThis);
+                            if (modThis < 2) {
+                                heatBackSpan = v[2];
+                            }
+                            if (modThis < 5 && modThis < 20) {
+                                heatFrontSpan = v[2];
+                            }
+                        });
 
-                    const heatColorMap = parseInt(tempObj.Table[i][j]);
-                    if(q >2) {
-                        if (heatColorMap ) {
-                            console.log(q);
-                            $.each(rgbColors, function (i, v) {
-                                var modThis = parseInt(v[1]) % parseInt(c2f(heatColorMap));
-                                // console.log(v[1] + ' ' + c2f(heatColorMap) + ' mod:' + modThis);
-                                if (modThis < 2) {
-                                    heatBackSpan = v[2];
-                                }
-                                if (modThis < 5 && modThis < 20) {
-                                    heatFrontSpan = v[2];
-                                }
-                            });
-    
-                        }
-                        $(heatDiv).append('<span alt="' + heatColorMap + '" style="width:80px;height:80px;background:#' + heatBackSpan + ';color:#' + heatFrontSpan + '">' + heatColorMap + '</span> ');
-                       // $(topValue).html(heatColorMap);
                     }
-                    } 
+                    $(heatDiv).append('<span alt="' + heatColorMap + '" style="width:50px;height:50px;background:#' + heatBackSpan + ';color:#' + heatFrontSpan + '">' + heatColorMap + '</span> ');
+
+                }
             }
-   
+        }
+
         /*
         var liveData = text.split(" ");
         var updateTime = liveData[0] + ' ' + liveData[1];

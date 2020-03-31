@@ -8,6 +8,7 @@
 
   <link href="assets/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script type="text/javascript" src="assets/js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="assets/js/jquery-qrcode.min.js"></script>
   <script src="assets/js/bootstrap.min.js"></script>
   <link rel="stylesheet" type="text/css" href="assets/css/main.css">
 
@@ -22,12 +23,12 @@
 </head>
 <style>
   #divHeat {
-    max-width: 250px;
-    height: 180px;
-    font-size: 20px;
-    padding: 5px;
-    border: 2px dotted #f4f4f4;
-    margin-left: 10px;
+    max-width: 380px;
+    height: 250px;
+    font-size: 25px; font-weight: bolder;
+    padding: 10px;
+    border: 1px solid #fff;
+    margin-left: 0px;
   }
 </style>
 
@@ -40,120 +41,196 @@
       <div class="col-md-12">
         <div class="heading">
 
-
-          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light ml-auto">
             <a class="navbar-brand" href="#"> <img src="images/logo.jpg" /></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-              aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
               <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-              <div class="navbar-nav">
-                <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-                <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#ModalAbout">About this</a>
-                <a class="nav-item nav-link" target="_blank"
-                  href="https://github.com/dasdata/coronafence/tree/master/themal-web">Source Code</a>
-                <a class="nav-item nav-link" target="_blank"
-                  href="https://www.hackster.io/dasdata/corofence-thermal-detector-f4436f">Hardware</a>
-                <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#ModalContact">Contact</a>
-              </div>
+            <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
+              <ul class="navbar-nav text-right">
+                <li class="nav-item active">
+                  <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#ModalAbout">About this</a>
+                </li>
+                <li class="nav-item active">
+                  <a class="nav-item nav-link" target="_blank"
+                    href="https://github.com/dasdata/coronafence/tree/master/themal-web">Source Code</a>
+                </li>
+                <li class="nav-item active"> <a class="nav-item nav-link" target="_blank"
+                    href="https://www.hackster.io/dasdata/corofence-thermal-detector-f4436f">Hardware</a>
+                </li>
+                <li class="nav-item active"> <a class="nav-item nav-link" href="#" data-toggle="modal"
+                    data-target="#ModalContact">Contact</a>
+                </li>
+              </ul>
             </div>
           </nav>
 
 
         </div>
+
       </div>
     </div>
-    <div class="bio-info">
-      <div class="row vtop">
-        <div class="col-md-4">
-          <div class="row ">
-            <div class="col-md-12">
-              <div class="bio-image">
-                <div class="card" >
-                  <img class="card-img-top" src="images/profile/md.png" id="profile-image1"
-                    class="img-circle img-responsive">
-                  <div class="card-body">
-                    <h4 class="card-title">Albert A. Shepherd</h4>
-                    <p class="card-text"> Meininger Strasse 90 <br>
-                      66440 Blieskastel</p>
-                    <a class="btn btn-outline-primary">Follow</a> <a class="btn btn-outline-secondary">Send Message</a>
 
-                    <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#ModalContact"></a>
-                  </div>
-                </div>
 
+
+    <div class="social-box">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-4 col-xs-12 text-center">
+            <div class="box">
+              <img class="img-fluid img-thumbnail" src="images/profile/md.png" id="profile-image1">
+              <div class="box-title">
+                <h3>Albert A. Shepherd</h3>
+                <h4>42y, Germany</h4>
+              </div>
+              <div class="box-text">
+                <p class="card-text"><i class="fas fa-car"></i> Meininger Strasse 90 <br>
+                  66440 Blieskastel</p>
+              </div>
+              <div class="box-btn">
+                <a class="btn btn-light">Follow</a> <a class="btn btn-light">Send Message</a>
+                <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#ModalContact"></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-xs-12 text-center">
+            <div class="box">
+              <i class="fa fa-facebook fa-3x" aria-hidden="true"></i>
+              <div class="box-title">
+                <b class="display-4">QRantaine</b>
+              </div>
+              <div class="box-text">
+                <span>
+                  <div id="myQRCode"></div>
+                </span>
+              </div>
+              <div class="box-btn">
+                <a target="_blank" class="btn btn-light"
+                  href="https://dasdata.co/?das=GnlPTmXtNF9WFf10JlFYilmbyer6bFUgZfXzQ7J9QDU9s5uT4POeUunKabsLDTIKxsphZ8NhLm4TUw8O2/fXAQ==">Data
+                  Stream</a>
+                <a target="_blank" class="btn btn-light"
+                  href=" https://dasdata.co/e.aspx?das=GnlPTmXtNF9WFf10JlFYilmbyer6bFUgZfXzQ7J9QDU9s5uT4POeUunKabsLDTIKxsphZ8NhLm4TUw8O2/fXAQ==&from=0&to=200&json=1">JSON</a>
+                <a target="_blank" class="btn btn-light"
+                  href=" https://dasdata.co/e.aspx?das=GnlPTmXtNF9WFf10JlFYilmbyer6bFUgZfXzQ7J9QDU9s5uT4POeUunKabsLDTIKxsphZ8NhLm4TUw8O2/fXAQ==&from=0&to=200&xml=1">XML</a>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-lg-4 col-xs-12  text-center">
+            <div class="box">
+              <i class="fa fa-twitter fa-3x" aria-hidden="true"></i>
+              <div class="box-title">
+                <b class="display-4">Heatmap</b>
+              </div>
+              <div class="box-text">
+                <p>
+                  <div style='padding:10px;' id='divHeat'>Welcome to your heatmap</div>
+                  <br> Latest Room Screaning: <br> <b class="display-5"><span id="topValue"></span>'C </b>  @ <i id='lastUpdateDate'></i> CET
+                </p>
+              </div>
+              <div class="box-btn">
 
               </div>
             </div>
           </div>
-        </div>
-        <div class="col-md-8">
-          <div class="bio-content">
-            <h1>Hi there, Check my Quarantine</h1>
-            <ul class="nav nav-tabs">
-              <li class="nav-item">
-                <a class="nav-link active" href="#"> LATEST SCREENING </a>
-                <p> @ <i id='lastUpdateDate'></i> CET
 
-                  <div style='padding:10px;' id='divHeat'>Welcome to your heatmap</div>
-                </p>
-
-                <h1><b id="topValue" style="margin-left: 250px;"></b>36.7 ºC </h1>
-
-
-              </li>
-              <li class="nav-item">
-                <a class="nav-link"
-                  href="https://dasdata.co/e.aspx?das=GnlPTmXtNF9WFf10JlFYilmbyer6bFUgZfXzQ7J9QDU9s5uT4POeUunKabsLDTIKxsphZ8NhLm4TUw8O2/fXAQ==&dfrom=28.03.2020&dto=30.03.2020&json=1">Last
-                  2 Days</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link"
-                  href="https://dasdata.co/e.aspx?das=GnlPTmXtNF9WFf10JlFYilmbyer6bFUgZfXzQ7J9QDU9s5uT4POeUunKabsLDTIKxsphZ8NhLm4TUw8O2/fXAQ==&from=0&to=200&json=1">All
-                  time</a>
-              </li>
-
-            </ul>
-
-
-            <span class="badge badge-secondary">7521 entries</span>
-            <a target="_blank" class="btn btn-light"
-              href="https://dasdata.co/?das=GnlPTmXtNF9WFf10JlFYilmbyer6bFUgZfXzQ7J9QDU9s5uT4POeUunKabsLDTIKxsphZ8NhLm4TUw8O2/fXAQ==">Data
-              Stream</a>
-            <a target="_blank" class="btn btn-light"
-              href=" https://dasdata.co/e.aspx?das=GnlPTmXtNF9WFf10JlFYilmbyer6bFUgZfXzQ7J9QDU9s5uT4POeUunKabsLDTIKxsphZ8NhLm4TUw8O2/fXAQ==&from=0&to=200&json=1">JSON</a>
-            <a target="_blank" class="btn btn-light"
-              href=" https://dasdata.co/e.aspx?das=GnlPTmXtNF9WFf10JlFYilmbyer6bFUgZfXzQ7J9QDU9s5uT4POeUunKabsLDTIKxsphZ8NhLm4TUw8O2/fXAQ==&from=0&to=200&xml=1">XML</a>
-
-
-
-
-
-          </div>
         </div>
       </div>
     </div>
+
+
   </div>
+
 
 
 
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
-      <h1 class="display-4">
-        <h3>About Queck</h3>
-      </h1>
+     
+        <h3 class="display-2">Time Spent in Quarantine</h3>
+    
 
       <p class="lead">
-        While half of the world population is in quarantine, it's become more important than ever to have a thermometer
-        in your house.
-        One of the main symptoms of the coronavirus is a high fever, so you'll want to monitor body temperature if you
-        or someone you care for starts to feel ill.
-        All temperature data is automatically stored into the and shared online in your Quarantine profile.
-        Alternatively you can share with your friends and family as well.
+ <h1 class="display-4"><div class="countup" id="countup1">
+  <span class="timeel days">00</span>
+  <span class="timeel timeRefDays">days</span>
+  <span class="timeel hours">00</span>
+  <span class="timeel timeRefHours">hours</span>
+  <span class="timeel minutes">00</span>
+  <span class="timeel timeRefMinutes">minutes</span>
+  <span class="timeel seconds">00</span>
+  <span class="timeel timeRefSeconds">seconds</span> 
+</div>       
+  </h1>
+
       </p>
     </div>
   </div>
+
+
+  <div class="social-box">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-4 col-xs-12 text-center">
+          <div class="box">
+            <i class="fa fa-pinterest-p fa-3x" aria-hidden="true"></i>
+            <div class="box-title">
+              <h2>Queck.me</h2>
+            </div>
+            <div class="box-text text-justify">
+              <span > While half of the world population is in quarantine and 
+        one of the main symptoms of the coronavirus is a high fever, you should monitor often your body temperature.  
+       </span>
+            </div>
+            <div class="box-btn">
+              <a href="https://devpost.com/software/corofence-show-me-your-quarantine" target="_blank" class="btn btn-light">Learn More</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-xs-12 text-center">
+          <div class="box">
+            <i class="fa fa-google-plus fa-3x" aria-hidden="true"></i>
+            <div class="box-title">
+              <h3>Temperature Analytics </h3>
+            </div>
+            <div class="box-text  text-justify">
+              <span>  All temperature data is automatically stored into the and shared online in your Quarantine profile.   Alternatively you can share with your friends and family as well in order to restore trust.</span>
+         <br>   </div>
+            <div class="box-btn">
+              <a href="https://dasdata.co/?das=GnlPTmXtNF9WFf10JlFYilmbyer6bFUgZfXzQ7J9QDU9s5uT4POeUunKabsLDTIKxsphZ8NhLm4TUw8O2/fXAQ==" class="btn btn-light">Learn More</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-xs-12 text-center">
+          <div class="box">
+            <i class="fa fa-github fa-3x" aria-hidden="true"></i>
+            <div class="box-title">
+              <h3>Build your Profile</h3>
+            </div>
+            <div class="box-text  text-justify">
+              <span>Start building your customized Quarantine Profile Page using sample code published at Github. This web page and <a href="https://create.arduino.cc/projecthub/dasdata/corofence-thermal-detector-f4436f" target="_blank">thermal camera</a> code is available as open source. </span>
+              <br>  </div>
+            <div class="box-btn">
+              <a href="https://github.com/dasdata/coronafence/tree/master/themal-web" class="btn btn-light">Get code</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/_C7R2Bg0suk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    </div>
+  </div>    
 
 
   <!-- Modal About -->
@@ -177,7 +254,9 @@
 
           <a href="https://covid-global-hackathon.devpost.com/">https://covid-global-hackathon.devpost.com/</a>
 
-          <iframe width="640" height="360" src="https://web.microsoftstream.com/embed/video/b4d998df-ddf6-422b-bfee-f242b2352825?autoplay=false&amp;showinfo=false" allowfullscreen style="border:none;"></iframe>
+          <iframe width="640" height="360"
+            src="https://web.microsoftstream.com/embed/video/b4d998df-ddf6-422b-bfee-f242b2352825?autoplay=false&amp;showinfo=false"
+            allowfullscreen style="border:none;"></iframe>
 
         </div>
         <div class="modal-footer">

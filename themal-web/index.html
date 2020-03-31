@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Queck.me - Quarantine Profile</title>
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script type="text/javascript" src="assets/js/jquery-3.3.1.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="assets/css/main.css">
+
+
+
+  <link rel="apple-touch-icon" href="apple-icon-60x60.png">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <meta name="msapplication-TileColor" content="#ffffff">
+  <meta name="msapplication-TileImage" content="ms-icon-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+</head>
+<style>
+  #divHeat {
+    max-width: 250px;
+    height: 180px;
+    font-size: 20px;
+    padding: 5px;
+    border: 2px dotted #f4f4f4;
+    margin-left: 10px;
+  }
+</style>
+
+<body>
+
+
+
+  <div class="container portfolio">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="heading">
+
+
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#"> <img src="images/logo.jpg" /></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+              aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#ModalAbout">About this</a>
+                <a class="nav-item nav-link" target="_blank"
+                  href="https://github.com/dasdata/coronafence/tree/master/themal-web">Source Code</a>
+                <a class="nav-item nav-link" target="_blank"
+                  href="https://www.hackster.io/dasdata/corofence-thermal-detector-f4436f">Hardware</a>
+                <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#ModalContact">Contact</a>
+              </div>
+            </div>
+          </nav>
+
+
+        </div>
+      </div>
+    </div>
+    <div class="bio-info">
+      <div class="row vtop">
+        <div class="col-md-4">
+          <div class="row ">
+            <div class="col-md-12">
+              <div class="bio-image">
+                <div class="card" >
+                  <img class="card-img-top" src="images/profile/md.png" id="profile-image1"
+                    class="img-circle img-responsive">
+                  <div class="card-body">
+                    <h4 class="card-title">Albert A. Shepherd</h4>
+                    <p class="card-text"> Meininger Strasse 90 <br>
+                      66440 Blieskastel</p>
+                    <a class="btn btn-outline-primary">Follow</a> <a class="btn btn-outline-secondary">Send Message</a>
+
+                    <a class="nav-item nav-link" href="#" data-toggle="modal" data-target="#ModalContact"></a>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="bio-content">
+            <h1>Hi there, Check my Quarantine</h1>
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link active" href="#"> LATEST SCREENING </a>
+                <p> @ <i id='lastUpdateDate'></i> CET
+
+                  <div style='padding:10px;' id='divHeat'>Welcome to your heatmap</div>
+                </p>
+
+                <h1><b id="topValue" style="margin-left: 250px;"></b>36.7 ºC </h1>
+
+
+              </li>
+              <li class="nav-item">
+                <a class="nav-link"
+                  href="https://dasdata.co/e.aspx?das=GnlPTmXtNF9WFf10JlFYilmbyer6bFUgZfXzQ7J9QDU9s5uT4POeUunKabsLDTIKxsphZ8NhLm4TUw8O2/fXAQ==&dfrom=28.03.2020&dto=30.03.2020&json=1">Last
+                  2 Days</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link"
+                  href="https://dasdata.co/e.aspx?das=GnlPTmXtNF9WFf10JlFYilmbyer6bFUgZfXzQ7J9QDU9s5uT4POeUunKabsLDTIKxsphZ8NhLm4TUw8O2/fXAQ==&from=0&to=200&json=1">All
+                  time</a>
+              </li>
+
+            </ul>
+
+
+            <span class="badge badge-secondary">7521 entries</span>
+            <a target="_blank" class="btn btn-light"
+              href="https://dasdata.co/?das=GnlPTmXtNF9WFf10JlFYilmbyer6bFUgZfXzQ7J9QDU9s5uT4POeUunKabsLDTIKxsphZ8NhLm4TUw8O2/fXAQ==">Data
+              Stream</a>
+            <a target="_blank" class="btn btn-light"
+              href=" https://dasdata.co/e.aspx?das=GnlPTmXtNF9WFf10JlFYilmbyer6bFUgZfXzQ7J9QDU9s5uT4POeUunKabsLDTIKxsphZ8NhLm4TUw8O2/fXAQ==&from=0&to=200&json=1">JSON</a>
+            <a target="_blank" class="btn btn-light"
+              href=" https://dasdata.co/e.aspx?das=GnlPTmXtNF9WFf10JlFYilmbyer6bFUgZfXzQ7J9QDU9s5uT4POeUunKabsLDTIKxsphZ8NhLm4TUw8O2/fXAQ==&from=0&to=200&xml=1">XML</a>
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">
+        <h3>About Queck</h3>
+      </h1>
+
+      <p class="lead">
+        While half of the world population is in quarantine, it's become more important than ever to have a thermometer
+        in your house.
+        One of the main symptoms of the coronavirus is a high fever, so you'll want to monitor body temperature if you
+        or someone you care for starts to feel ill.
+        All temperature data is automatically stored into the and shared online in your Quarantine profile.
+        Alternatively you can share with your friends and family as well.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- Modal About -->
+  <div class="modal fade" id="ModalAbout" tabindex="-1" role="article" aria-labelledby="aboutModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="AboutModalLongTitle">About Queck</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Check my Quarantine (Queck) was build by <a target="_blank" href="https://devpost.com/mariusdima">Marius
+              Dima</a> and submited as part of COVID-19 Global Hackathon in 30th March 2020. </p>
+
+          <p>The COVID-19 Global Hackathon is an opportunity for developers to build software solutions that drive
+            social impact,
+            with the aim of tackling some of the challenges related to the current coronavirus (COVID-19) pandemic.</p>
+
+          <a href="https://covid-global-hackathon.devpost.com/">https://covid-global-hackathon.devpost.com/</a>
+
+          <iframe width="640" height="360" src="https://web.microsoftstream.com/embed/video/b4d998df-ddf6-422b-bfee-f242b2352825?autoplay=false&amp;showinfo=false" allowfullscreen style="border:none;"></iframe>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal Contact -->
+  <div class="modal fade" id="ModalContact" tabindex="-1" role="dialog" aria-labelledby="ContactModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ContactModalLongTitle">Contact</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h2>Please send email to md@dasdata.co</h2>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="assets/&#95;heat_online.js"></script>
+
+</body>
+
+</html>

@@ -6,9 +6,11 @@ var heatDiv = '#divHeat';
 var colorDiv = '#divColor';
 var heatBackSpan = '';
 
+
 cmdCheckHeat();
 
 $(document).ready(function () {
+    $("#distanceCalculator").hide();
     var interval = setInterval(
         function cmdUpdateSrv() {
             cmdCheckHeat();  // check heat map  
@@ -23,38 +25,124 @@ $("#myQRCode").qrcode({
 });
 
 
+$("#myDistanceLocator").click(function () {
+
+   // $("#distanceCalculator").show("slow");
+
+    var map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
+        /* No need to set credentials if already passed in URL */
+        center: new Microsoft.Maps.Location(52.497786, 13.350347),
+        zoom: 18
+    });
+    //Load the GeoJSON and HeatMap modules
+    Microsoft.Maps.loadModule(['Microsoft.Maps.GeoJson', 'Microsoft.Maps.HeatMap'], function () {
+        // earthquake data in the past 30 days from usgs.gov   https://opendata.ecdc.europa.eu/covid19/casedistribution/json/   https://coronadatascraper.com/#features.json
+
+        Microsoft.Maps.GeoJson.readFromUrl('https://gist.githubusercontent.com/wavded/1200773/raw/e122cf709898c09758aecfef349964a8d73a83f3/sample.json', function (shapes) {
+            //   Microsoft.Maps.GeoJson.readFromUrl('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson', function (shapes) {
+            var heatMap = new Microsoft.Maps.HeatMapLayer(shapes, { radius: 5, propertyAsWeight: 'mag' });
+            map.layers.insert(heatMap);
+        });
+    });
+
+});
+
+$("#btnHideDistance").click(function () {
+    $("#distanceCalculator").hide("slow");
+});
+
+function loadMapScenario() {
+    var map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
+        /* No need to set credentials if already passed in URL */
+        center: new Microsoft.Maps.Location(39.393486, -98.100769),
+        zoom: 3
+    });
+    //Load the GeoJSON and HeatMap modules
+    Microsoft.Maps.loadModule(['Microsoft.Maps.GeoJson', 'Microsoft.Maps.HeatMap'], function () {
+        // earthquake data in the past 30 days from usgs.gov
+        Microsoft.Maps.GeoJson.readFromUrl('https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson', function (shapes) {
+            var heatMap = new Microsoft.Maps.HeatMapLayer(shapes, { radius: 5, propertyAsWeight: 'mag' });
+            map.layers.insert(heatMap);
+        });
+    });
+
+}
+
 /*
  * Basic Count Up from Date and Time
  * Author: @mrwigster / https://guwii.com/bytes/count-date-time-javascript/
  */
-window.onload = function() {
-  // Month Day, Year Hour:Minute:Second, id-of-element-container
-  countUpFromTime("March 22, 2020 12:00:00", 'countup1'); // ****** Change this line!
+window.onload = function () {
+    // Month Day, Year Hour:Minute:Second, id-of-element-container
+    countUpFromTime("March 22, 2020 12:00:00", 'countup1'); // ****** Change this line!
 };
+
+
 function countUpFromTime(countFrom, id) {
-  countFrom = new Date(countFrom).getTime();
-  var now = new Date(),
-      countFrom = new Date(countFrom),
-      timeDifference = (now - countFrom);
-    
-  var secondsInADay = 60 * 60 * 1000 * 24,
-      secondsInAHour = 60 * 60 * 1000;
-    
-  days = Math.floor(timeDifference / (secondsInADay) * 1);
-  hours = Math.floor((timeDifference % (secondsInADay)) / (secondsInAHour) * 1);
-  mins = Math.floor(((timeDifference % (secondsInADay)) % (secondsInAHour)) / (60 * 1000) * 1);
-  secs = Math.floor((((timeDifference % (secondsInADay)) % (secondsInAHour)) % (60 * 1000)) / 1000 * 1);
+    countFrom = new Date(countFrom).getTime();
+    var now = new Date(),
+        countFrom = new Date(countFrom),
+        timeDifference = (now - countFrom);
 
-  var idEl = document.getElementById(id);
-  idEl.getElementsByClassName('days')[0].innerHTML = days;
-  idEl.getElementsByClassName('hours')[0].innerHTML = hours;
-  idEl.getElementsByClassName('minutes')[0].innerHTML = mins;
-  idEl.getElementsByClassName('seconds')[0].innerHTML = secs;
+    var secondsInADay = 60 * 60 * 1000 * 24,
+        secondsInAHour = 60 * 60 * 1000;
 
-  clearTimeout(countUpFromTime.interval);
-  countUpFromTime.interval = setTimeout(function(){ countUpFromTime(countFrom, id); }, 1000);
+    days = Math.floor(timeDifference / (secondsInADay) * 1);
+    hours = Math.floor((timeDifference % (secondsInADay)) / (secondsInAHour) * 1);
+    mins = Math.floor(((timeDifference % (secondsInADay)) % (secondsInAHour)) / (60 * 1000) * 1);
+    secs = Math.floor((((timeDifference % (secondsInADay)) % (secondsInAHour)) % (60 * 1000)) / 1000 * 1);
+
+    var idEl = document.getElementById(id);
+    idEl.getElementsByClassName('days')[0].innerHTML = days;
+    idEl.getElementsByClassName('hours')[0].innerHTML = hours;
+    idEl.getElementsByClassName('minutes')[0].innerHTML = mins;
+    idEl.getElementsByClassName('seconds')[0].innerHTML = secs;
+
+    clearTimeout(countUpFromTime.interval);
+    countUpFromTime.interval = setTimeout(function () { countUpFromTime(countFrom, id); }, 1000);
 }
 
+function distance(lat1, lon1, lat2, lon2) {
+    var p = 0.017453292519943295;    // Math.PI / 180
+    var c = Math.cos;
+    var a = 0.5 - c((lat2 - lat1) * p) / 2 +
+        c(lat1 * p) * c(lat2 * p) *
+        (1 - c((lon2 - lon1) * p)) / 2;
+
+    return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+}
+
+function cmdCheckDistance() {
+    var startPos;
+    var startPosLat;
+    var startPosLong;
+    var distance;
+
+    if (navigator.geolocation) {
+
+
+        startPosLat = 44.95716993150707;
+        startPosLong = -93.28439280496818;
+
+        $("#startLat").text(startPosLat);
+        $("#startLon").text(startPosLong);
+
+        navigator.geolocation.watchPosition(function (position) {
+            $("#currentLat").text(position.coords.latitude);
+            $("#currentLon").text(position.coords.longitude);
+
+            distance = calculateDistance(startPosLat, startPosLong, position.coords.latitude, position.coords.longitude)
+            $("#distance").text(distance);
+
+            if (distance < .05) {
+                $("#message").text("Yes, were inside .05 KM!!! :) A+")
+            } else if (distance > .05) {
+                $("#message").text("No, not inside .05 KM :(")
+            }
+        });
+    }
+
+}
 
 
 function cmdCheckHeat() {
@@ -63,7 +151,7 @@ function cmdCheckHeat() {
     readTextFile(liveData, function (text) {
         var tempObj = JSON.parse(text)
         // console.log(arrayOfObjects.Table);
-        q = 0; var heatFrontSpan = ''; 
+        q = 0; var heatFrontSpan = '';
         for (i in tempObj.Table) { // in all records entries 
             var updateTime = tempObj.Table[i].AIDate;
             $("#lastUpdateDate").html(updateTime);
@@ -201,7 +289,23 @@ function cmdTempColors(tempVal) {
 
 
 
-
+// Reused code - copyright Moveable Type Scripts - retrieved May 4, 2010.
+// http://www.movable-type.co.uk/scripts/latlong.html
+// Under Creative Commons License http://creativecommons.org/licenses/by/3.0/
+function calculateDistance(lat1, lon1, lat2, lon2) {
+    var R = 6371; // km
+    var dLat = (lat2 - lat1).toRad();
+    var dLon = (lon2 - lon1).toRad();
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(lat1.toRad()) * Math.cos(lat2.toRad()) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+    return d;
+}
+Number.prototype.toRad = function () {
+    return this * Math.PI / 180;
+}
 
 
 var rgbColors = [
